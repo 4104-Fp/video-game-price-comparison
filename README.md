@@ -17,18 +17,25 @@
 
 ## API
 
-- [CheapShark](https://apidocs.cheapshark.com/)
+- [CheapShark API Documentation](https://apidocs.cheapshark.com/)
+
+CheapShark API provides access to the latest video game deals across various online stores. It offers detailed information about discounts, game prices, store ratings, and deal ratings. This allows us to compare prices efficiently and present the best deals to our users.
 
 ## About
 
-This project deals with displaying Video game deals
+The "Video Game Price Comparison" project is a web application designed to help gamers find the best deals for their favorite video games. Utilizing the CheapShark API, this application compares prices across multiple online gaming stores, ensuring users have access to the most cost-effective options. Our platform is not just about finding the cheapest price; it's about making informed purchasing decisions with comprehensive deal ratings and store reviews. 
+
+Whether you are a casual gamer or a dedicated enthusiast, this tool is your gateway to affordable gaming experiences. Our easy-to-use interface and powerful search capabilities ensure that you are only a few clicks away from your next great gaming adventure.
 
 ---
 
 ## Usability Goals
 
-1. Find video game deals
-2. Compare prices between stores
+1. **Efficient Price Comparison**: Quickly compare game prices across different stores, ensuring users can find the best deals with ease.
+2. **Deal Rating System**: Implement a deal rating system to help users discern the quality of the deals beyond just the price.
+3. **User-Friendly Interface**: Design an intuitive and straightforward interface that caters to both tech-savvy individuals and those less familiar with such platforms.
+4. **Responsive Design**: Ensure the application is accessible and functional across various devices and screen sizes.
+5. **Error Prevention and Handling**: Implement robust error checking and provide clear feedback, minimizing user frustration and confusion.
 
 ---
 
@@ -39,6 +46,12 @@ This project deals with displaying Video game deals
 ---
 
 ## Project Setup
+
+---
+
+### **If you clone and open this project with an IDE such as PyCharm, you can skip the following steps.**
+
+---
 
 This document guides you through the process of setting up a virtual environment, activating it, installing the
 necessary dependencies, and ensuring the `virtualenv` script is correctly placed in your PATH.
