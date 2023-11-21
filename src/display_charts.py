@@ -17,10 +17,9 @@ def display_bar_chart(game_id):
 
 
 def display_line_chart(game_id):
-    response = requests.request(
+    res_dict = requests.request(
         "GET", f"https://www.cheapshark.com/api/1.0/games?id={game_id}"
-    )
-    res_dict = response.json()
+    ).json()
     all_time_lowest = res_dict.get("cheapestPriceEver").get("price")
     store_lowest = [store.get("price") for store in res_dict.get("deals")]
 
