@@ -20,12 +20,11 @@ if game_name:
     # data=payload)
     response = requests.request("GET", url, headers=headers, params=payload)
     r_dict = response.json()
-    # st.write(r_dict)
     st.write(len(r_dict))
     for item in r_dict:
         img = item.get('thumb')
         try:
             if img:  # Check if img is not None
-                st.image(img)
+                st.image(img, width=200)
         except Exception as e:
             st.warning(f"Could not display image for {item.get('external', 'Unknown')} game. Error: {e}")
