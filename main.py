@@ -1,5 +1,12 @@
 from src.display_charts import *
 
+st.set_page_config(
+    layout="wide",
+    page_title="Deal Time",
+    page_icon=":video_game:",
+    initial_sidebar_state="expanded",  # currently not working
+)
+
 st.title("Deal Time")
 st.header("Deal Selection Time")
 

@@ -27,10 +27,10 @@ def display_line_chart(game_id):
         {
             "Store Lowest Price": store_lowest
             if len(store_lowest) > 1
-            else store_lowest * 10,
+            else store_lowest * 5,
             "All Time Lowest Price": [all_time_lowest] * len(store_lowest)
             if len(store_lowest) > 1
-            else [all_time_lowest] * 10,
+            else [all_time_lowest] * 5,
         }
     )
 
@@ -43,6 +43,8 @@ def display_line_chart(game_id):
         xaxis_title="Store",
         yaxis_title="Price",
     )
+    st.subheader("Line Chart")
+    st.info("If the line is flat, there is only one store.")
     st.plotly_chart(fig, use_container_width=True)
 
 
