@@ -25,4 +25,4 @@ if game_name:
         if r_dict[x]["thumb"] is "None":
             st.warning("Does not exist")
         else:
-            st.image(r_dict[x]["thumb"]) 
+            st.image(r_dict[x]["thumb"])
