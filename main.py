@@ -1,5 +1,12 @@
 from src.display_charts import *
 
+st.set_page_config(
+    layout="wide",
+    page_title="Deal Time",
+    page_icon=":video_game:",
+    initial_sidebar_state="expanded",  # currently not working
+)
+
 st.title("Deal Time")
 st.header("Deal Selection Time")
 
@@ -12,9 +19,7 @@ payload = {"title": game_name}
 if game_name:
     # response = requests.request("GET", 'https://www.cheapshark.com/api/1.0/games?title=game_name',
     # data=payload)
-    response = requests.request("GET", url, params=payload)
-    r_dict = response.json()
-    st.write(len(r_dict))
+    r_dict = requests.request("GET", url, params=payload).json()
     for item in r_dict:
         img = item.get("thumb")
         try:
