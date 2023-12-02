@@ -54,3 +54,15 @@ def display_line_chart(game_id):
 
 def display_table(game_id):
     st.success("Table")
+    res_dict = requests.request(
+        "GET", f"https://www.cheapshark.com/api/1.0/games?id={game_id}"
+    ).json()
+    
+    deals_df = pd.DataFrame(res_dict['deals'])
+    
+    #potentially nuke this next line just incase
+    deals_df['dealID'] = "https://www.cheapshark.com/redirect?dealID=" + deals_df['dealID']
+    
+    deals_df.head()
+    
+    st.dataframe(deals_df, width=None, height=None)
