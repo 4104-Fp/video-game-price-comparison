@@ -62,7 +62,25 @@ def display_table(game_id):
     
     #potentially nuke this next line just incase
     deals_df['dealID'] = "https://www.cheapshark.com/redirect?dealID=" + deals_df['dealID']
+    st.write(deals_df['storeID'])
+    #images?
+    deals_df['storeID'] = "https://www.cheapshark.com/img/stores/logos/" + (deals_df['storeID'].astype(int) - 1).astype(str) + ".png"
     
-    deals_df.head()
-    
-    st.dataframe(deals_df, width=None, height=None)
+    #deals_df.head()
+    '''
+    st.dataframe(
+        deals_df, 
+        column_config={
+            "storeID"
+            "dealID"
+            "price"
+            "retailPrice"
+            "savings"
+        }
+    )
+    '''
+    st.dataframe(deals_df,
+                 column_config={
+                     "storeID": st.column_config.ImageColumn("Logo", help="The stores Logo"),
+                     "dealID": st.column_config.LinkColumn("Link", help="Link to deal")
+                 })
