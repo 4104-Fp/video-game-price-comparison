@@ -70,20 +70,6 @@ def display_table(game_id):
     
     deals_df['storeID'] = "https://www.cheapshark.com/img/stores/logos/" + (deals_df['storeID'].astype(int) - 1).astype(str) + ".png"
     
-    #st.write(deals_df)
-    '''
-    st.dataframe(
-        deals_df, 
-        column_config={
-            "storeID"
-            "dealID"
-            "price"
-            "retailPrice"
-            "savings"
-        }
-    )
-    '''
-    
     #Help with this area if you can, i can't figure out how to disclude a line
     
     agree = st.checkbox("Minimum Percantage savings?")
