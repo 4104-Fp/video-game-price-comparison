@@ -53,20 +53,24 @@ def display_line_chart(game_id):
 
 
 def display_table(game_id):
-    st.success("Table")
+    st.header("Interactive Table")
+    st.subheader("Best DEALS below retail")
+    
     res_dict = requests.request(
         "GET", f"https://www.cheapshark.com/api/1.0/games?id={game_id}"
     ).json()
     
     deals_df = pd.DataFrame(res_dict['deals'])
     
-    #potentially nuke this next line just incase
+    #This makes the dealID link with the refferal link as mentioned in the API
+    
     deals_df['dealID'] = "https://www.cheapshark.com/redirect?dealID=" + deals_df['dealID']
-    st.write(deals_df['storeID'])
-    #images?
+    
+    #Source of images to link with the storeID
+    
     deals_df['storeID'] = "https://www.cheapshark.com/img/stores/logos/" + (deals_df['storeID'].astype(int) - 1).astype(str) + ".png"
     
-    #deals_df.head()
+    #st.write(deals_df)
     '''
     st.dataframe(
         deals_df, 
@@ -79,8 +83,37 @@ def display_table(game_id):
         }
     )
     '''
-    st.dataframe(deals_df,
+    
+    #Help with this area if you can, i can't figure out how to disclude a line
+    
+    agree = st.checkbox("Minimum Percantage savings?")
+    min = 0
+    if agree :
+        min_input = st.text_input("Whats your minimum deal percantage that you want to see?", "0-100")
+        try:
+            min = int(min)
+            if min < 0 or min > 100:
+                st.error("Please enter a value between 0 and 100.")
+                min = 0
+        except ValueError:
+            st.error("Please enter a valid integer from 0-100")
+    
+    if agree and min >= 0 and min <= 100:
+        filtered_df = deals_df[deals_df['savings'].astype(float) >= min]
+    else:
+        filtered_df = deals_df
+    
+    #End of area i need help with    
+        
+    #Super helpful in understanding st.dataframe
+    #https://github.com/streamlit/docs/blob/main/python/api-examples-source/data.column_config.py
+    
+    st.dataframe(filtered_df,
+                 hide_index= True,
                  column_config={
                      "storeID": st.column_config.ImageColumn("Logo", help="The stores Logo"),
-                     "dealID": st.column_config.LinkColumn("Link", help="Link to deal")
+                     "dealID": st.column_config.LinkColumn("Link", help="Link to deal"),
+                     "price" : st.column_config.NumberColumn("Deal Price",help="This is the best deal at this site."),
+                     "retailPrice": st.column_config.NumberColumn("Cost", help="Normal retail price without deal"),
+                     "savings": st.column_config.NumberColumn("Percent", help="Percantage of savings form original retail price")
                  })
