@@ -80,6 +80,8 @@ def display_table(game_id):
             if min_value < 0 or min_value > 100:
                 st.error("Please enter a value between 0 and 100.")
                 min_value = 0
+            else:
+                st.success("New min value recorded.")
         except ValueError:
             st.error("Please enter a valid integer from 0-100")
 
