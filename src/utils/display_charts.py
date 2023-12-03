@@ -4,7 +4,7 @@ import requests
 import streamlit as st
 
 
-def get_store_name(stores, store_id):
+def __get_store_name(stores, store_id):
     try:
         for store in stores:
             if store.get("storeID") == store_id:
@@ -30,7 +30,7 @@ def display_bar_chart(game_id):
 
     store_names = []
     for i in store_ids:
-        store_names.append(get_store_name(stores, i))
+        store_names.append(__get_store_name(stores, i))
 
     data = pd.DataFrame(
         {"Store Name": store_names, "Discounted Price": store_discounted_prices}
@@ -81,7 +81,7 @@ def display_line_chart(game_id):
     st.plotly_chart(fig, use_container_width=True)
 
 
-def get_logo_url(store_id):
+def __get_logo_url(store_id):
     try:
         logo_url = (
             f"https://www.cheapshark.com/img/stores/logos/{int(store_id) - 1}.png"
@@ -106,7 +106,7 @@ def display_table(game_id):
             "https://www.cheapshark.com/redirect?dealID=" + deals_df["dealID"]
     )
 
-    deals_df["storeID"] = deals_df["storeID"].apply(get_logo_url)
+    deals_df["storeID"] = deals_df["storeID"].apply(__get_logo_url)
 
     agree = st.checkbox("Minimum Percentage savings?")
     min_value = 0
