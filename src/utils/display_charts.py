@@ -7,7 +7,31 @@ import streamlit as st
 # Feature-API-Call #3 (Name):
 #   - Bar chart comparing store discounted price
 def display_bar_chart(game_id):
-    st.warning("Bar Chart")
+    res_dict = requests.request(
+        "GET", f"https://www.cheapshark.com/api/1.0/games?id={game_id}"
+    ).json()
+    store_names = [store.get("storeName") for store in res_dict.get("deals")]
+    store_discounted_prices = [store.get("price") for store in res_dict.get("deals")]
+
+    data = pd.DataFrame(
+        {
+            "Store Name": store_names,
+            "Discounted Price": store_discounted_prices
+        }
+    )
+
+    fig = px.bar(
+        data,
+        x="Store Name",
+        y="Discounted Price",
+        height=500,
+        title="Store Discounted Prices",
+        labels={"Discounted Price": "Price"},
+    )
+
+    st.subheader("Bar Chart")
+    st.plotly_chart(fig, use_container_width=True)
+
 
 def display_line_chart(game_id):
     res_dict = requests.request(
