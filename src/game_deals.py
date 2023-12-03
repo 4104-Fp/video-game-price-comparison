@@ -55,7 +55,7 @@ def game_deals():
                             if date:
                                 json_date = datetime.fromtimestamp(cheapest_price_date)
                                 current_date = datetime(date.year, date.month, date.day)
-                                st.write(current_date - json_date)
+                                st.write(f"Its been {current_date - json_date} and hours since the cheapest deal")
                         except Exception as e:
                             print(f"Error parsing date: {e}")
                         # if date:
