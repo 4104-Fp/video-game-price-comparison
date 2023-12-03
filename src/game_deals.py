@@ -1,6 +1,6 @@
 # it has to have the full path to the file in order to run main.py
 from src.utils.display_charts import *
-
+from datetime import datetime
 
 def game_deals():
     st.title("Deal Time")
@@ -37,6 +37,12 @@ def game_deals():
                         else:
                             st.write("")
 
+                        d = st.date_input("Days since cheapest deal", value=None)
+                        if d:
+                            json_d = datetime.fromtimestamp(item.get("date"))
+                            selected_d = datetime(d.year,d.month,d.day)
+                            
+                        
                         chart = st.radio(
                             "What type of chart would you like to see",
                             [
