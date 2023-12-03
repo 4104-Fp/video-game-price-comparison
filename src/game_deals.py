@@ -26,27 +26,37 @@ def game_deals():
                         # provide gameId so we can get all necessary data
                         # https://www.cheapshark.com/api/1.0/games?id=612
                         game_id = item.get("gameID")
-                        
+
                         st.button("No Deal", type="primary")
-                        if st.button('Best Deal'):
-                            st.link_button(':money_mouth_face:Link:money_mouth_face:',
-                                           "https://www.cheapshark.com/redirect?dealID=" + item.get('cheapestDealID'))
+                        if st.button("Best Deal"):
+                            st.link_button(
+                                ":money_mouth_face:Link:money_mouth_face:",
+                                "https://www.cheapshark.com/redirect?dealID="
+                                + item.get("cheapestDealID"),
+                            )
                         else:
-                            st.write('')
-                        
+                            st.write("")
+
                         chart = st.radio(
                             "What type of chart would you like to see",
-                            ["Bar Chart","Line Chart","Interactive Table"],
+                            [
+                                "Bar Chart - Store Discounted Prices",
+                                "Line Chart - Store Lowest Price vs All Time Lowest Price",
+                                "Interactive Table - Best DEALS below retail",
+                            ],
                             index=None,
                         )
-                        if chart == "Bar Chart":  
+                        if chart == "Bar Chart - Store Discounted Prices":
                             display_bar_chart(game_id)
-                        if chart == "Line Chart":
+                        if (
+                                chart
+                                == "Line Chart - Store Lowest Price vs All Time Lowest Price"
+                        ):
                             display_line_chart(game_id)
-                        if chart == "Interactive Table":
+                        if chart == "Interactive Table - Best DEALS below retail":
                             display_table(game_id)
                         else:
-                            st.warning("Please select a talbe to view.")
+                            st.warning("Please select a interactive widget view.")
                     st.image(img, width=200)
             except Exception as e:
                 print(f"No Thumbnail Found, {e}, for {item.get('external', 'Unknown')}")

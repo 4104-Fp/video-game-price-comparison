@@ -115,7 +115,7 @@ def display_table(game_id):
             "What's your minimum deal percentage that you want to see? eg. 50",
             0,
             100,
-            50,
+            0,
         )
         try:
             min_value = int(min_input)
