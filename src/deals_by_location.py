@@ -37,6 +37,8 @@ def deals_by_location():
 
     if aqi_data_dict["status"] == "success":
         display_map(aqi_data_dict)
+        st.header("US Based Location.")
+        st.success("Access to US based deals will be shown.")
 
     else:
         st.warning("No data available for this location.")

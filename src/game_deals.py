@@ -34,9 +34,19 @@ def game_deals():
                         else:
                             st.write('')
                         
-                        display_bar_chart(game_id)
-                        display_line_chart(game_id)
-                        display_table(game_id)
+                        chart = st.radio(
+                            "What type of chart would you like to see",
+                            ["Bar Chart","Line Chart","Interactive Table"],
+                            index=None,
+                        )
+                        if chart == "Bar Chart":  
+                            display_bar_chart(game_id)
+                        if chart == "Line Chart":
+                            display_line_chart(game_id)
+                        if chart == "Interactive Table":
+                            display_table(game_id)
+                        else:
+                            st.warning("Please select a talbe to view.")
                     st.image(img, width=200)
             except Exception as e:
                 print(f"No Thumbnail Found, {e}, for {item.get('external', 'Unknown')}")
