@@ -29,7 +29,7 @@ def game_deals():
                         
                         st.button("No Deal", type="primary")
                         if st.button('Best Deal'):
-                            st.link_button('Why hello there',
+                            st.link_button(':money_mouth_face:Link:money_mouth_face:',
                                            "https://www.cheapshark.com/redirect?dealID=" + item.get('cheapestDealID'))
                         else:
                             st.write('')
