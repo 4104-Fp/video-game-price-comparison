@@ -4,20 +4,36 @@ import requests
 import streamlit as st
 
 
+def get_store_name(stores, store_id):
+    try:
+        for store in stores:
+            if store.get("storeID") == store_id:
+                return store.get("storeName")
+    except Exception as e:
+        print(f"Error generating store name for storeID {store_id}: {e}")
+        return None
+
+
 # Feature-API-Call #3 (Name):
 #   - Bar chart comparing store discounted price
 def display_bar_chart(game_id):
     res_dict = requests.request(
         "GET", f"https://www.cheapshark.com/api/1.0/games?id={game_id}"
     ).json()
-    store_names = [store.get("storeName") for store in res_dict.get("deals")]
+
+    stores = requests.request(
+        "GET", f"https://www.cheapshark.com/api/1.0/stores"
+    ).json()
+
+    store_ids = [store.get("storeID") for store in res_dict.get("deals")]
     store_discounted_prices = [store.get("price") for store in res_dict.get("deals")]
 
+    store_names = []
+    for i in store_ids:
+        store_names.append(get_store_name(stores, i))
+
     data = pd.DataFrame(
-        {
-            "Store Name": store_names,
-            "Discounted Price": store_discounted_prices
-        }
+        {"Store Name": store_names, "Discounted Price": store_discounted_prices}
     )
 
     fig = px.bar(
@@ -29,7 +45,7 @@ def display_bar_chart(game_id):
         labels={"Discounted Price": "Price"},
     )
 
-    st.subheader("Bar Chart")
+    st.header("Bar Chart")
     st.plotly_chart(fig, use_container_width=True)
 
 
