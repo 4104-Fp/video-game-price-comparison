@@ -4,12 +4,14 @@ from datetime import datetime
 
 def game_deals():
     st.title("Deal Time")
-    st.header("Deal Selection Time")
+    st.subheader("Deal Selection Time")
 
     # Method of access to API
     url = "https://www.cheapshark.com/api/1.0/games?"
 
-    game_name = st.text_input("Game Name")
+    game_name = st.text_input(
+        "Game Name. e.g: Cyberpunk 2077", placeholder="Cyberpunk 2077"
+    )
     payload = {"title": game_name}
 
     if game_name:
