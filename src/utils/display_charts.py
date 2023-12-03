@@ -7,7 +7,7 @@ import streamlit as st
 # Feature-API-Call #3 (Name):
 #   - Bar chart comparing store discounted price
 def display_bar_chart(game_id):
-st.warning("Barchart")
+    st.warning("Bar Chart")
 
 def display_line_chart(game_id):
     res_dict = requests.request(
