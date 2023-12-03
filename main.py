@@ -1,3 +1,4 @@
+from src.deals_by_location import *
 from src.game_deals import *
 
 st.set_page_config(
@@ -16,10 +17,12 @@ add_select_box = st.sidebar.selectbox(
     "Select a Project",
     [
         "Game Deals",
-        "Project 2",
-        "Project 3",
+        "Deals by Location",
     ],
 )
 
 if add_select_box == "Game Deals":
     game_deals()
+
+elif add_select_box == "Deals by Location":
+    deals_by_location()

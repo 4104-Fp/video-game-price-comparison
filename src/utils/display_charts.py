@@ -72,14 +72,19 @@ def display_table(game_id):
     agree = st.checkbox("Minimum Percentage savings?")
     min_value = 0
     if agree:
-        min_input = st.text_input(
-            "What's your minimum deal percentage that you want to see? eg. 50", "0"
+        min_input = st.slider(
+            "What's your minimum deal percentage that you want to see? eg. 50",
+            0,
+            100,
+            50,
         )
         try:
             min_value = int(min_input)
             if min_value < 0 or min_value > 100:
                 st.error("Please enter a value between 0 and 100.")
                 min_value = 0
+            else:
+                st.success("New min value recorded.")
         except ValueError:
             st.error("Please enter a valid integer from 0-100")
 
@@ -91,6 +96,7 @@ def display_table(game_id):
     st.dataframe(
         filtered_df,
         hide_index=True,
+        use_container_width=True,
         column_config={
             "storeID": st.column_config.ImageColumn("Logo", help="The stores Logo"),
             "dealID": st.column_config.LinkColumn("Link", help="Link to deal"),
