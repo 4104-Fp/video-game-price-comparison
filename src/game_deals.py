@@ -1,6 +1,8 @@
 # it has to have the full path to the file in order to run main.py
-from src.utils.display_charts import *
 from datetime import datetime
+
+from src.utils.display_charts import *
+
 
 def game_deals():
     st.title("Deal Time")
@@ -39,12 +41,28 @@ def game_deals():
                         else:
                             st.write("")
 
-                        d = st.date_input("Days since cheapest deal", value=None)
-                        if d:
-                            json_d = datetime.fromtimestamp(item.get("date"))
-                            selected_d = datetime(d.year,d.month,d.day)
-                            
-                        
+                        cheapest_price_date = (
+                            requests.request(
+                                "GET",
+                                f"https://www.cheapshark.com/api/1.0/games?id={game_id}",
+                            )
+                            .json()
+                            .get("cheapestPriceEver")
+                            .get("date")
+                        )
+                        date = st.date_input("Days since cheapest deal", value=None)
+                        try:
+                            if date:
+                                json_date = datetime.fromtimestamp(cheapest_price_date)
+                                st.write(json_date)
+                        except Exception as e:
+                            print(f"Error parsing date: {e}")
+                        # if date:
+                        #     json_date = datetime.fromtimestamp(item.get("date"))
+                        #     selected_date = datetime(date.year, date.month, date.day)
+                        #     st.write(selected_date)
+                        #     st.write(json_date)
+
                         chart = st.radio(
                             "What type of chart would you like to see",
                             [
