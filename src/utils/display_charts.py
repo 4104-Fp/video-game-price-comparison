@@ -10,7 +10,7 @@ def display_bar_chart(game_id):
     res_dict = requests.request(
         "GET", f"https://www.cheapshark.com/api/1.0/games?id={game_id}"
     ).json()
-    store_names = [store.get("storeName") for store in res_dict.get("price")]
+    store_names = [store.get("storeName") for store in res_dict.get("deals")]
     store_discounted_prices = [store.get("price") for store in res_dict.get("deals")]
 
     data = pd.DataFrame(
