@@ -96,6 +96,7 @@ def display_table(game_id):
     st.dataframe(
         filtered_df,
         hide_index=True,
+        use_container_width=True,
         column_config={
             "storeID": st.column_config.ImageColumn("Logo", help="The stores Logo"),
             "dealID": st.column_config.LinkColumn("Link", help="Link to deal"),

@@ -26,6 +26,14 @@ def game_deals():
                         # provide gameId so we can get all necessary data
                         # https://www.cheapshark.com/api/1.0/games?id=612
                         game_id = item.get("gameID")
+                        
+                        st.button("No Deal", type="primary")
+                        if st.button('Best Deal'):
+                            st.link_button('Why hello there',
+                                           "https://www.cheapshark.com/redirect?dealID=" + item.get('cheapestDealID'))
+                        else:
+                            st.write('')
+                        
                         display_bar_chart(game_id)
                         display_line_chart(game_id)
                         display_table(game_id)
