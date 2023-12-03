@@ -72,8 +72,11 @@ def display_table(game_id):
     agree = st.checkbox("Minimum Percentage savings?")
     min_value = 0
     if agree:
-        min_input = st.text_input(
-            "What's your minimum deal percentage that you want to see? eg. 50", "0"
+        min_input = st.slider(
+            "What's your minimum deal percentage that you want to see? eg. 50",
+            0,
+            100,
+            50,
         )
         try:
             min_value = int(min_input)
