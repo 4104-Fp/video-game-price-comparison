@@ -4,10 +4,49 @@ import requests
 import streamlit as st
 
 
+def __get_store_name(stores, store_id):
+    try:
+        for store in stores:
+            if store.get("storeID") == store_id:
+                return store.get("storeName")
+    except Exception as e:
+        print(f"Error generating store name for storeID {store_id}: {e}")
+        return None
+
+
 # Feature-API-Call #3 (Name):
 #   - Bar chart comparing store discounted price
 def display_bar_chart(game_id):
-    st.warning("Bar Chart")
+    res_dict = requests.request(
+        "GET", f"https://www.cheapshark.com/api/1.0/games?id={game_id}"
+    ).json()
+
+    stores = requests.request(
+        "GET", f"https://www.cheapshark.com/api/1.0/stores"
+    ).json()
+
+    store_ids = [store.get("storeID") for store in res_dict.get("deals")]
+    store_discounted_prices = [store.get("price") for store in res_dict.get("deals")]
+
+    store_names = []
+    for i in store_ids:
+        store_names.append(__get_store_name(stores, i))
+
+    data = pd.DataFrame(
+        {"Store Name": store_names, "Discounted Price": store_discounted_prices}
+    )
+
+    fig = px.bar(
+        data,
+        x="Store Name",
+        y="Discounted Price",
+        height=500,
+        title="Store Discounted Prices",
+        labels={"Discounted Price": "Price"},
+    )
+
+    st.header("Bar Chart")
+    st.plotly_chart(fig, use_container_width=True)
 
 
 def display_line_chart(game_id):
@@ -42,7 +81,7 @@ def display_line_chart(game_id):
     st.plotly_chart(fig, use_container_width=True)
 
 
-def get_logo_url(store_id):
+def __get_logo_url(store_id):
     try:
         logo_url = (
             f"https://www.cheapshark.com/img/stores/logos/{int(store_id) - 1}.png"
@@ -67,7 +106,7 @@ def display_table(game_id):
             "https://www.cheapshark.com/redirect?dealID=" + deals_df["dealID"]
     )
 
-    deals_df["storeID"] = deals_df["storeID"].apply(get_logo_url)
+    deals_df["storeID"] = deals_df["storeID"].apply(__get_logo_url)
 
     agree = st.checkbox("Minimum Percentage savings?")
     min_value = 0
@@ -76,7 +115,7 @@ def display_table(game_id):
             "What's your minimum deal percentage that you want to see? eg. 50",
             0,
             100,
-            50,
+            0,
         )
         try:
             min_value = int(min_input)
