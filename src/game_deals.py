@@ -39,9 +39,9 @@ def __show_charts(game_id):
     )
     if chart == "Bar Chart - Store Discounted Prices":
         display_bar_chart(game_id)
-    if chart == "Line Chart - Store Lowest Price vs All Time Lowest Price":
+    elif chart == "Line Chart - Store Lowest Price vs All Time Lowest Price":
         display_line_chart(game_id)
-    if chart == "Interactive Table - Best DEALS below retail":
+    elif chart == "Interactive Table - Best DEALS below retail":
         display_table(game_id)
     else:
         st.warning("Please select a interactive widget view.")
